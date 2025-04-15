@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Latest MTG Arena MSI Installer</title>
+  <link rel="icon" href="https://images.ctfassets.net/s5n2t79q9icq/3CUWEO2guKRsTJSt1GxAfG/23fd9cda504187e501acfd78b552963e/MTGArenaLogo-White-dropshadow.png"/>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #111, #333);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #f0f0f0;
+      text-align: center;
+      padding: 50px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #1f1f1f;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 100, 0, 0.3);
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #ffa500;
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      background: #ffa500;
+      color: black;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    a:hover {
+      background: #ffcc33;
+    }
+    .url-text {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #bbb;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://images.ctfassets.net/s5n2t79q9icq/3CUWEO2guKRsTJSt1GxAfG/23fd9cda504187e501acfd78b552963e/MTGArenaLogo-White-dropshadow.png" alt="MTGA Logo" />
+    <h1>Latest MTG Arena Installer</h1>
+    <a id="download-link" href="#" download>Download MSI Installer</a>
+    <div class="url-text" id="installer-url"></div>
+    <p style="margin-top: 20px; font-size: 0.85em; color: #888;" id="version-info"></p>
+  </div>
+  <script>
+    fetch('https://mtgarena.downloads.wizards.com/Live/Windows64/versTML from the page (ion')
+      .then(response => response.json())
+      .then(data => {
+        const installerURL = data.CurrentInstallerURL;
+        const version = Object.keys(data.Versions)[0];
+        const releaseDate = data.Versions[version];
+
+        document.getElementById('download-link').href = installerURL;
+        document.getElementById('installer-url').textContent = installerURL;
+        document.getElementById('version-info').textContent = `Version: ${version} | Date: ${releaseDate}`;
+      })
+      .catch(error => {
+        console.error('Error fetching installer data:', error);
+        document.getElementById('version-info').textContent = 'Failed to load installer information.';
+      });
+  </script>
+</body>
+</html>
