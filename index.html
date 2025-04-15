@@ -61,9 +61,14 @@
     <div class="url-text" id="installer-url"></div>
     <p style="margin-top: 20px; font-size: 0.85em; color: #888;" id="version-info"></p>
   </div>
+
   <script>
-    fetch('https://mtgarena.downloads.wizards.com/Live/Windows64/versTML from the page (ion')
-      .then(response => response.json())
+    // Produces identical output to: https://mtgarena.downloads.wizards.com/Live/Windows64/version'
+    fetch("https://ballerburg.us.to/mtgamsiinstallerjsonshitproxycorsbullshit.php")
+      .then(res => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
       .then(data => {
         const installerURL = data.CurrentInstallerURL;
         const version = Object.keys(data.Versions)[0];
@@ -73,9 +78,9 @@
         document.getElementById('installer-url').textContent = installerURL;
         document.getElementById('version-info').textContent = `Version: ${version} | Date: ${releaseDate}`;
       })
-      .catch(error => {
-        console.error('Error fetching installer data:', error);
-        document.getElementById('version-info').textContent = 'Failed to load installer information.';
+      .catch(err => {
+        console.error("Error fetching installer data:", err);
+        document.getElementById("version-info").textContent = "Failed to load installer information.";
       });
   </script>
 </body>
